@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Main {
+    public static int minOperations(int[] A, int K) {
+        int n = A.length;
+
+        // Step 1: Check feasibility
+        int remainder = A[0] % K;
+        for (int i = 1; i < n; i++) {
+            if (A[i] % K != remainder) {
+                return -1;
+            }
+        }
+
+        // Step 2: Sort array
+        Arrays.sort(A);
+
+        // Step 3: Find median
+        int median = A[n / 2];
+
+        // Step 4: Calculate operations
+        int operations = 0;
+        for (int i = 0; i < n; i++) {
+            operations += Math.abs(A[i] - median) / K;
+        }
+
+        return operations;
+    }
+
+    public static void main(String[] args) {
+        int[] A = {2, 4, 6, 8, 10};
+        int K = 2;
+        System.out.println(minOperations(A, K)); // Output: 6
+    }
+}
